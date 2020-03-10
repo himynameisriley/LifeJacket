@@ -40,6 +40,7 @@ export class HeadNavComponent implements OnInit {
           .subscribe(categories => {
             this.store.dispatch(new CategoryActions.SetCategories(categories));
             this.categories = categories;
+            this.searchOptions = categories;
           });
       }
     });

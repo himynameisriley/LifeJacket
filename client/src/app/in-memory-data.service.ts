@@ -9,6 +9,7 @@ export class InMemoryDataService implements InMemoryDbService {
     const categories = [
       {
         name: 'category 1',
+        fixedName: 'category1',
         sequenceNumber: 1,
         pending: false,
         complete: true,
@@ -32,6 +33,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         name: 'category 2',
+        fixedName: 'category2',
         sequenceNumber: 2,
         pending: true,
         complete: false,
@@ -55,6 +57,7 @@ export class InMemoryDataService implements InMemoryDbService {
       },
       {
         name: 'category 3',
+        fixedName: 'category3',
         sequenceNumber: 3,
         pending: false,
         complete: false,
