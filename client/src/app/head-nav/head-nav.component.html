@@ -33,7 +33,7 @@
 <div
   [className]="!dropdownShow ? 'container-fluid sectionsDropdown navbar-expand-lg navbar-dark bg-dark d-none' : 'container-fluid sectionsDropdown navbar-expand-lg navbar-dark bg-dark d-block'">
   <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 row-cols-lg-6 navbar-nav">
-    <div *ngFor="let category of categories$ | async" class="col nav-item">
+    <div *ngFor="let category of categories" class="col nav-item">
       <a routerLink="/user/{{category.name}}" class="nav-link" (click)="toggleDropdown()">{{category.name}}</a>
     </div>
   </div>

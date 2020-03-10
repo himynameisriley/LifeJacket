@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 import { User } from './../models/user.model';
 import { AppState } from './../app.state';
 import { Category } from '../models/category.model';
+import { DataService } from '../data.service';
+import * as CategoryActions from '../actions/category.actions';
 
 @Component({
   selector: 'app-head-nav',
@@ -18,7 +20,7 @@ export class HeadNavComponent implements OnInit {
   searchOptions: Category[];
   dropdownShow: boolean;
 
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState>, private dataService: DataService) {
     this.users$ = store.select('user');
     this.categories$ = store.select('categories');
   }
@@ -31,8 +33,16 @@ export class HeadNavComponent implements OnInit {
     this.users$.subscribe(result => {
       this.user = result;
     });
-    this.categories$.subscribe(results => this.categories = results);
-    this.searchOptions = this.categories;
+
+    this.categories$.subscribe(result => {
+      if (!result) {
+        this.dataService.getCategories()
+          .subscribe(categories => {
+            this.store.dispatch(new CategoryActions.SetCategories(categories));
+            this.categories = categories;
+          });
+      }
+    });
   }
 
   toggleDropdown() {

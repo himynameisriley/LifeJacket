@@ -32,14 +32,8 @@ export class UserComponent implements OnInit {
       console.log('We tried to refresh the user');
       this.accountService.Refresh();
     }
-    console.log("We tried to fetch the user categories");
-    // this.dataService.getCategories(this.user.EmailAddress);
-    this.categories$.subscribe(results => {
-      this.categories = results;
+    this.categories$.subscribe(result => {
+      this.categories = result;
     });
-  }
-
-  handleClick() {
-    console.log('here');
   }
 }
