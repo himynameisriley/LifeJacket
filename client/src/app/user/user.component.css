@@ -6,3 +6,7 @@
   padding-top: 5vh;
   height: 100vh;
 }
+
+.biggerText {
+  font-size: large;
+}

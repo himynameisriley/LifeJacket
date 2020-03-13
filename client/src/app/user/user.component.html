@@ -1,15 +1,33 @@
 <app-head-nav></app-head-nav>
-<div class="container-fluid">
-  <div class="container user">
-    <div class="jumbotron">
-      <h1>The RSI Life Jacket</h1>
-      <p>The RSI Life Jacket is here to help you learn about the office and begin your career
-        here at Rural
-        Sourcing.</p>
-      <hr class="my-4">
-      <a routerLink="/user/{{categories[0].name}}" class="btn btn-info float-right">
-        Begin
-      </a>
+<div class="container user">
+  <div class="card">
+
+    <div *ngIf="firstTime">
+      <div class="card-header">
+        <h2>Hello, {{user?.name}}</h2>
+      </div>
+      <div class="card-body">
+        <p class="biggerText">It looks like this is your first time! Welcome to the team.</p>
+        <hr class="my-4">
+        <a routerLink="/user/{{categories[0].name}}" class="btn btn-info">
+          Begin
+        </a>
+      </div>
     </div>
+
+    <div *ngIf="!firstTime">
+      <div class="card-header">
+        <h2>Welcome back {{user?.FirstName}}!</h2>
+      </div>
+      <div class="card-body">
+        <p class="biggerText">You're making great progress! Keep up the great work!</p>
+        <p class="biggerText">Lets continue with {{user?.pendingCategory}}</p>
+        <hr class="my-4">
+        <a routerLink="/user/{{user?.pendingCategory}}" class="btn btn-info">
+          Continue
+        </a>
+      </div>
+    </div>
+
   </div>
 </div>

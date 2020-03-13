@@ -18,6 +18,7 @@ export class UserComponent implements OnInit {
   stepProgress: number;
   categories$: Observable<Category[]>;
   categories: Category[];
+  firstTime: boolean;
 
   constructor(private store: Store<AppState>, private dataService: DataService, private accountService: AccountService) {
     this.users$ = store.select('user');
@@ -28,6 +29,7 @@ export class UserComponent implements OnInit {
     this.users$.subscribe(result => {
       this.user = result;
     });
+    // this.getUserDetails();
     if (!this.user) {
       console.log('We tried to refresh the user');
       this.accountService.Refresh();
@@ -39,7 +41,20 @@ export class UserComponent implements OnInit {
     });
   }
 
-  handleClick() {
-    console.log('here');
-  }
+  // getUserDetails() {
+  //   this.dataService.getUserPendingCategory(this.user.EmailAddress)
+  //     .subscribe(
+  //       result => {
+  //         if (result.status !== 200) return new Error('User not found')
+  //         console.log('success', result);
+  //         const index = this.categories.findIndex(category => {
+  //           category.name === this.user.PendingCategory;
+  //         });
+  //         index === 0 ? this.firstTime = true : this.firstTime = false;
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       }
+  //     );
+  // }
 }

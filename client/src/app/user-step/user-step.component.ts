@@ -20,14 +20,11 @@ export class UserStepComponent implements OnInit {
   users$: Observable<User>;
   user: User;
   stepProgress: number;
-  categories$: Observable<Category[]>;
-  categories: Category[];
   currentStep: Step;
   currentCategory: Category;
 
   constructor(private store: Store<AppState>, private dataService: DataService, private accountService: AccountService, private activeRoute: ActivatedRoute, private route: Router) {
     this.users$ = store.select('user');
-    this.categories$ = store.select('categories');
     this.routeEvent(this.route);
   }
 
@@ -44,8 +41,6 @@ export class UserStepComponent implements OnInit {
   }
 
   handleLoad() {
-    let stepsArray = [];
-    const urlParams = this.activeRoute.snapshot.paramMap.get('category');
     this.users$.subscribe(result => {
       this.user = result;
     });
@@ -53,12 +48,14 @@ export class UserStepComponent implements OnInit {
       console.log('We tried to refresh the user');
       this.accountService.Refresh();
     }
-    console.log("We tried to fetch the user categories");
-    // this.dataService.getCategories(this.user.EmailAddress);
-    this.categories$.subscribe(results => this.categories = results);
-    this.currentCategory = this.categories.find(category => category.name === urlParams);
-    const steps = this.categories.map(category => category.steps.map(step => stepsArray.push(step)));
-    this.stepProgress = Math.floor((stepsArray.filter(step => step.complete === true).length / stepsArray.length) * 100);
+    this.getCurrentCategory();
+  }
+
+  getCurrentCategory() {
+    this.dataService.getCategoryDetails(this.user.EmailAddress, this.user.PendingCategoryId)
+      .subscribe(result => {
+        this.currentCategory = result;
+      });
   }
 
   completeStep(step) {

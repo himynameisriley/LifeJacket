@@ -5,4 +5,6 @@ export class User {
   EmailAddress: string
   PictureUrl?: string
   Location?: string
+  PendingCategory?: string
+  PendingCategoryId?: string
 }
