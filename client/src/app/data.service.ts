@@ -54,12 +54,12 @@ export class DataService {
       )
   }
 
-  userCompleteStep(step, email) {
-    return this.http.patch(`${this.serviceUrl}/user`, { email, step });
+  userCompleteStep(stepId, email) {
+    return this.http.patch(`${this.serviceUrl}/steps/completeStep`, { email, stepId });
   }
 
   addStep(data) {
-    return this.http.post(this.serviceUrl, data)
+    return this.http.post(this.serviceUrl, { data })
       .pipe(
         map(result => result),
         catchError(this.handleError('addStep', []))
@@ -75,7 +75,7 @@ export class DataService {
   }
 
   addCategory(categoryName) {
-    return this.http.post(this.serviceUrl, categoryName)
+    return this.http.post(this.serviceUrl, { categoryName })
       .pipe(
         map(result => result),
         catchError(this.handleError('addCategory', []))
